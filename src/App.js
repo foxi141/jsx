@@ -2,8 +2,9 @@ import React from "react";
 import useInput from "./logic";
 function Claculate(){
     const [value,input,calcul]=useInput()
-    const [calc,setCalc]=React.useState()
     const[rat,setRat]=React.useState()
+    const [calc,setCalc]=React.useState()
+   
     let inn=(e)=>{
     e.preventDefault()
     if(value<35000){
@@ -13,28 +14,26 @@ function Claculate(){
      let calc=(value*0.014)
     setCalc(calc.toFixed(1))
      }
-     let rat=(calc/3)
-     setRat(rat.toFixed(0))
-    } 
-    
+     if(value>37500){
+        let rat=(value*0.014/3)
+        setRat(rat.toFixed(1))
+        }else{
+            let rat=((value-value+525)/3)
+            setRat(rat.toFixed(1))
+        }
+    }
 return(
    <div>
    <form onSubmit={inn}>
-       
         {input}
-        <p>{calcul}</p>
         <button className="btn" type="sumbit">Oblicz</button>
+        <p>{calcul}</p>
+        <div>Oplata B: {calc}</div>
+    <div>Rata: {rat}</div>
+    <div>Rata: {rat}</div>
+    <div>Rata: {rat}</div>
     </form>
-  
-    <div>Oplata B: {calc}</div>
-    <div>Rata: {rat}</div>
-    <div>Rata: {rat}</div>
-    <div>Rata: {rat}</div>
     </div>
 )
-
-
-
-
 }
 export default Claculate

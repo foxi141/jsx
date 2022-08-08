@@ -13,14 +13,19 @@ function Calculatee(){
      let calc=(value*0.027)
     setCalc(calc.toFixed(1))
      }
-     let rat=(calc/3)
-     setRat(rat.toFixed(0))
+     if(value>37500){
+        let rat=(value*0.014/3)
+        setRat(rat.toFixed(1))
+        }else{
+            let rat=((value-value+525)/3)
+            setRat(rat.toFixed(1))
+        }
     } 
 return(
    <div>
    <form onSubmit={inn}>
        
-        <p>{input}</p>
+             {input}
         <button className="btn" type="sumbit">Oblicz</button>
     </form>
     <div>Oplata C {calc} zł</div>

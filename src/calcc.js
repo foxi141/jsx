@@ -14,15 +14,19 @@ function Calculat() {
    let calc=(value*0.014)
   setCalc(calc.toFixed(1))
    }
-let rat=(calc/3)
-setRat(rat.toFixed(0))
+   if(value>37500){
+    let rat=(value*0.014/3)
+    setRat(rat.toFixed(1))
+    }else{
+        let rat=((value-value+525)/3)
+        setRat(rat.toFixed(1))
+    }
 }
   return(
     <div>
    <form onSubmit={inn}>      
         {input}
-        <p>{calc}</p>
-        <button className="btn" type="sumbit">Oblicz</button>
+        <button className="btn" type="sumbit">Oblicz</button>   
     </form>
     <div>Oplata A: {calc}</div>
     <div>Rata: {rat}</div>
