@@ -1,69 +1,64 @@
-import React, { useState } from "react";
-import Form from "./form/form";
+import React, { useState, useEffect } from "react";
+
 import "../index.css";
 
-export default function Logic() {
-  const [calc, setCalc] = useState(0);
-  const getData = (data) => {
-    if (data > 37500) {
-      let calc = data * 0.014;
-      setCalc(calc.toFixed(1));
-    } else if (data < 37500) {
-      let calc = data - data + 525;
-      setCalc(calc.toFixed(1));
-    } else {
-      alert("prosze podac liczbe");
-    }
-  };
-  const [calcs, setCalcs] = useState(0);
-  const getDatas = (datas) => {
-    if (datas > 37500) {
-      let calcs = datas * 0.014;
-      setCalcs(calcs.toFixed(1));
-    } else if (datas < 37500) {
-      let calcs = datas - datas + 525;
-      setCalcs(calcs.toFixed(1));
-    } else {
-      alert("prosze podac liczbe");
-    }
-  };
-  const [calct, setCalct] = useState(0);
-  const getDatat = (datat) => {
-    if (datat > 77500) {
-      let calct = datat * 0.027;
-      setCalct(calct.toFixed(1));
-    } else if (datat < 77500) {
-      let calct = datat - datat + 2100;
-      setCalct(calct.toFixed(1));
-    } else {
-      alert("prosze podac liczbe");
-    }
-  };
-  return (
-    <div className="output">
-      <Form onSubmit={getData} />
-      <div className="sum">
-        {calc}
-        <p> Rata{calc / 3}</p>
-        <p>Rata{calc / 3}</p>
-        <p>Rata{calc / 3}</p>
-      </div>
+import * as C from "./utils";
 
-      <div className="sums">
-        <Form onSubmit={getDatas} />
-        {calcs}
+export const useLogic = ({ values, setValues }) => {
+  const [calculation, setCalculation] = useState(0);
+  const [calculations, setCalculations] = useState(0);
+  const [calculationt, setCalculationt] = useState(0);
 
-        <p>Rata{calcs / 3}</p>
-        <p>Rata{calcs / 3}</p>
-        <p>Rata{calcs / 3}</p>
-      </div>
-      <div className="sumt">
-        <Form onSubmit={getDatat} />
-        {calct}
-        <p>Rata{calct / 3}</p>
-        <p> Rata{calct / 3}</p>
-        <p>Rata{calct / 3}</p>
-      </div>
-    </div>
-  );
-}
+  const { cost, input_cost, input_costt } = values ?? {};
+  const caluclate = () => {
+    if (!cost) {
+      setCalculation();
+      return;
+    }
+
+    if (cost > 37500) {
+      setCalculation(cost * 0.014);
+      return;
+    }
+
+    setCalculation(cost - cost + 525);
+  };
+
+  const calculates = () => {
+    if (input_cost > 37500) {
+      setCalculations(input_cost * 0.014);
+      return;
+    }
+
+    setCalculations(input_cost-input_cost+525);
+  };
+  const calculatet = () => {
+    if (input_costt > 77500) {
+      setCalculationt(input_costt * 0.014);
+      return;
+    }
+    setCalculationt(input_costt - input_costt + 2100);
+  };
+
+  const checkCalc = (key) => {
+    switch (key) {
+      case C.COST:
+        return calculation;
+      case C.INPUT_COST:
+        return calculations;
+      case C.INPUT_COSTT:
+        return calculationt;
+    }
+  };
+
+  useEffect(() => {
+    caluclate();
+    calculates();
+    calculatet();
+  }, [values]);
+
+  return {
+    calculation,
+    checkCalc,
+  };
+};

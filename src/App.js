@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
+import { Form } from "./components/form/form";
 import Logic from "./components/logic";
 
-function App() {
+export const App = () => {
+  const [values, setValues] = useState();
+  console.log({ val: values?.cost }, "outside");
   return (
     <div className="box">
-      <Logic />
+      <Form {...{ setValues, values }} />
 
       <div className="boxbox"></div>
     </div>
   );
-}
-
-export default App;
+};

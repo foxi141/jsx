@@ -1,44 +1,13 @@
 body {
   background: gray;
 }
-
-.inpt{
-  width: 400px;
-}
-
-.option{
-  text-align: center;
-  
-}
 .box{
   text-align: center;
   font-size:32px;
   font-weight: bold;
   height: 300px;
   width: 300px;
-  margin-left: 100px;
-}.sum{
- 
- border-radius:1%;
- color:black;
- border:10px black;
- background-color: rgba(255, 255, 255, 0.244);
- text-align: center down;
- 
-}.sums{
-  border-radius:1%;
-  color:black;
-  border:10px black;
-  background-color: rgba(255, 255, 255, 0.244);
-  text-align: center down;
+  margin-left: 750px;
+  border-radius: black 10px;
   
-}
-
-.sumt{
-  border-radius:1%;
-  color:black;
-  border:10px black;
-  background-color: rgba(255, 255, 255, 0.244);
-  text-align: center down; 
-
 }

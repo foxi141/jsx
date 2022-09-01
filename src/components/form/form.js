@@ -1,29 +1,49 @@
-import { useState } from "react";
-import Btn from "../Button";
-import "./index.css";
+import React from "react";
+import { Formik } from "formik";
+import { validationSchemaForm } from "../validation";
+import { useLogic } from "./../logic";
 
-const Form = (props) => {
-  const [value, setvalue] = useState("");
-  const handleChange = (e) => {
-    setvalue(e.target.value);
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    props.onSubmit(value);
-  };
+import * as C from "./../utils";
+import * as S from "./../styles";
+
+export const Form = ({ setValues, values }) => {
+  const { calculation, checkCalc } = useLogic({ setValues, values });
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          className="inpt"
-          type="number"
-          value={value}
-          onChange={handleChange}
-        />
+      
+      <Formik
+        {...{
+          initialValues: {},
+          onSubmit: (values) => setValues(values),
+          validationSchema: validationSchemaForm,
+        }}
+      >
+        {({ values, handleBlur, handleChange, handleSubmit, errors }) => (
+          <form onSubmit={handleSubmit}>
+            {C.INPUTS_ARRAY.map(({ type, key }, index) => (
+              <>
+                <S.Input
+                  key={index}
+                  {...{
+                    type,
+                    onChange: handleChange,
+                    value: values[key],
+                    name: key,
+                    id: key,
+                  }}
+                />{" "}
+                <p>{checkCalc(key)}</p>
+                {errors[key] && (
+                  <S.Feedback {...{ id: C.FEEDBACK }}>{errors[key]}</S.Feedback>
+                )}
+              </>
+            ))}
 
-        <Btn type="submit" />
-      </form>
+            <S.Button {...{ type: C.B_SUMBIT }}>Submit</S.Button>
+          </form>
+        )}
+      </Formik>
     </div>
   );
 };
-export default Form;
